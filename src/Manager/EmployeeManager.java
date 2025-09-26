@@ -3,17 +3,29 @@ package Manager;
 import Models.Assessment;
 import Models.Employee;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import Controller.EmployeeHierarchy;
 import Persistence.EmployeeData;
+import View.Menu;
 
 public class EmployeeManager {
-    public void run() {
-        List<Employee> employees = EmployeeData.getEmployees();
-        Employee ceo = null;
+    private List<Employee> employees;
+    private Map<Integer, Employee> employeesById;
+    private Map<Integer, List<Employee>> hierarchy;
+    private Employee ceo;
+    private final Menu menu;
+
+    public EmployeeManager(Menu menu) {
+        this.menu = menu;
+    }
+
+    public void loadEmployees(int maxLevels) {
+        // Employees by 7 levels > lvl_1=3, lvl_2=9 ,lvl_3=27 ,lvl_4=81 ,lvl_5=243 ,lvl_6=729 ,lvl_7=4374
+        // Calculation of the total number of assessments > (4374*7) + (729*6) + (243*5) + (81*4) + (27*3) + (9*2) + 3 = 36633
+        employees = EmployeeData.getEmployees(maxLevels);
+        ceo = null;
         for (Employee employee : employees) {
             if (employee.isCeo()) {
                 ceo = employee;
@@ -21,22 +33,26 @@ public class EmployeeManager {
             }
         }
 
-        // Construir mapas
-        Map<Integer, Employee> employeesById = EmployeeHierarchy.buildEmployeeByIdMap(employees);
-        Map<Integer, List<Employee>> hierarchy = EmployeeHierarchy.buildHierarchyMap(employees);
+        // Build maps
+        employeesById = EmployeeHierarchy.buildEmployeeByIdMap(employees);
+        hierarchy = EmployeeHierarchy.buildHierarchyMap(employees);
 
-        // Si el ceo no existe no crea evaluaciones
-        if (ceo != null) {
+        menu.printEnter();
+        menu.printSuccess("Employees loaded with " + maxLevels + " levels. Total employees: " + employees.size());
+    }
+
+    public void generateAssessments() {
+        if (ceo != null && employees != null && !employees.isEmpty()) {
             List<Assessment> assessmentsToInsert = EmployeeHierarchy.createAssessments(hierarchy, ceo.getId(), employeesById);
 
-            // Imprimir las evaluaciones creadas
-            System.out.println("Assessments creados:");
+            menu.printInfo("\nAssessments created:");
             for (Assessment assessment : assessmentsToInsert) {
                 System.out.println(assessment);
             }
-            System.out.println("Cantidad de assessments creados: " + assessmentsToInsert.size());
+            menu.printEnter();
+            menu.printSuccess("Number of assessments created: " + assessmentsToInsert.size());
         } else {
-            System.out.println("Error while trying to generate assessments, non existing CEO.");
+            menu.printError("Error while trying to generate assessments: non existing CEO or employees not loaded.");
         }
     }
 }

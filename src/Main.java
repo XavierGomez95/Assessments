@@ -1,8 +1,8 @@
-import Manager.EmployeeManager;
+import Controller.MenuController;
 
 public class Main {
     public static void main(String[] args) {
-        EmployeeManager manager = new EmployeeManager();
-        manager.run();
+        MenuController menu = new MenuController();
+        menu.start();
     }
 }
