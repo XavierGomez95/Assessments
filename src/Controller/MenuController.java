@@ -39,8 +39,14 @@ public class MenuController {
     }
 
     private void handleLoadEmployees() {
-        int maxLevels = menu.readMaxLevels("\nEnter the number of levels (excluding CEO): ");
-        manager.loadEmployees(maxLevels);
+        while (true) {
+            int maxLevels = menu.readMaxLevels("\nEnter the number of hierarchy levels (excluding CEO, between 1 and 12): ");
+            if (maxLevels >= 1 && maxLevels <= 12) {
+                manager.loadEmployees(maxLevels);
+                break;
+            }
+            menu.printError("Invalid input. Please enter a number between 1 and 12.");
+        }
     }
 
     private void handleGenerateAssessments() {
