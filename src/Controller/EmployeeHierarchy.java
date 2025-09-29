@@ -3,6 +3,7 @@ package Controller;
 import Models.Assessment;
 import Models.Employee;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,8 +72,9 @@ public class EmployeeHierarchy {
                 break;
             }
 
+            int currentYear = Year.now().getValue();
             assessmentsToInsert.add(new Assessment(
-                    2025, // TODO: Add dynamic data in next update
+                    currentYear,
                     employee,
                     currentSupervisor,
                     employee.getId()
