@@ -47,7 +47,7 @@ public class EmployeeManager {
 
             menu.printInfo("\nAssessments created:");
             for (Assessment assessment : assessmentsToInsert) {
-                System.out.println(assessment);
+                menu.printMessage(assessment);
             }
             menu.printEnter();
             menu.printSuccess("Number of assessments created: " + assessmentsToInsert.size());

@@ -1,5 +1,7 @@
 package View;
 
+import Models.Assessment;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -74,7 +76,7 @@ public class Menu {
     public int readMaxLevels(String message) {
         System.out.print(message);
         while (!scanner.hasNextInt()) {
-            System.err.println("Please enter a valid number.");
+            printError("Please enter a valid number.");
             scanner.next();
             System.out.print(message);
         }
@@ -106,4 +108,6 @@ public class Menu {
     public void printEnter() {
         System.out.println();
     }
+
+    public void printMessage(Assessment assessment) { System.out.println(assessment); }
 }

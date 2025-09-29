@@ -13,6 +13,10 @@ public class Assessment {
         this.supervisor = supervisor;
     }
 
+    public Employee getSupervisor() {
+        return supervisor;
+    }
+
     public Employee getEmployee() {
         return employee;
     }
