@@ -15,4 +15,4 @@
 Thumbs.db
 
 # Java archives
-.jar
+*.jar
