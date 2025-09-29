@@ -28,6 +28,40 @@ It has been designed following **SOLID principles** and is optimized to perform 
 
 ---
 
+## 🧪 Testing
+
+The project includes **unit tests** to ensure correctness and maintainability of the core logic:
+
+- **JUnit 5** is used as the main testing framework.
+- **Mockito** is used for mocking dependencies and isolating unit tests from external logic.
+- Tests cover **all classes of the project code**. 
+
+---
+
+## 🧪 Project test structure
+
+```
+test/
+├── Controller/
+│ ├── EmployeeHierarchyTest.java # Tests recursive logic for hierarchy & assessments
+│ └── MenuControllerTest.java # Tests menu interaction and input validation
+│
+├── Manager/
+│ └── EmployeeManagerTest.java # Tests business logic: employees & assessments
+│
+├── Models/
+│ ├── AssessmentTest.java # Tests Assessment entity behavior
+│ └── EmployeeTest.java # Tests Employee entity behavior
+│
+├── Persistence/
+│ └── EmployeeDataTest.java # Tests employee and hierarchy data generation
+│
+└── View/
+└── MenuTest.java # Tests console-based UI
+```
+
+---
+
 ## 🏗️ Project structure
 
 ```
@@ -128,4 +162,5 @@ CEO: Joan (1)
 {'Employee ref=Employee{'id='50', name='Eva', isSupervisor=false', supervisor=Employee{'id='11', name='Iris', isSupervisor=true', supervisor=Employee{'id='4', name='Marta', isSupervisor=true', supervisor=Employee{'id='1', name='Joan', isSupervisor=true', supervisor=None'}'}'}'}', year=2025', supervisor=Employee{'id='1', name='Joan', isSupervisor=true', supervisor=None'}', id=50'}
 
 ```
+
 
